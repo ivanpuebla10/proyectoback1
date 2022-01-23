@@ -124,4 +124,4 @@ const ProductController = {
       
 }
 
-module.exports = ProductController
+module.exports = ProductController;
