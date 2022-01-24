@@ -7,10 +7,10 @@ module.exports = (sequelize, DataTypes) => {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
+     * The `models/index` file will call this method automatically. 
      */
     static associate(models) {
-      // Producto.belongsToMany(models.Pedido, { through: 'Productoypedido'})
+      Product.belongsToMany(models.Order, { through: 'Productorder' , as: 'orders', foreignKey: 'ProductId'})
       Product.belongsToMany(models.Category, { through: 'Productcategory', as: 'categories', foreignKey: 'ProductId'
     })}
   }
