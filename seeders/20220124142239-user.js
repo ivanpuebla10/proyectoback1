@@ -2,31 +2,31 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    return queryInterface.bulkInsert( 'Orders', [
-      {
-      number: "100",
-      delivery_date: "2022-09-21",
-      status: "delivered",
-      // UserId: "1",
+    return queryInterface.bulkInsert( 'Users', [
+    {
+      name: "Ivan",
+      email: "ivan@gmail.com",
+      password: "123456",
+      role: "admin",
       createdAt: new Date(),
       updatedAt: new Date()
     },
     {
-      number: "200",
-      delivery_date: "2022-11-21",
-      status: "pending",
-      // UserId: "2",
+      name: "Ana",
+      email: "ana@gmail.com",
+      password: "contraseña",
+      role: "user",
       createdAt: new Date(),
       updatedAt: new Date()
     },
     {
-      number: "300",
-      delivery_date: "2022-010-22",
-      status: "delivered",
-      // UserId: "3",
+      name: "Carlos",
+      email: "carlos@gmail.com",
+      password: "patata",
+      role: "user",
       createdAt: new Date(),
       updatedAt: new Date()
-    }
+    },
   ])
   },
 

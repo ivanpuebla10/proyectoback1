@@ -4,6 +4,8 @@ const PORT = 4000
 
 app.use(express.json())
 
+
+app.use('/users', require('./routes/users'));
 app.use('/products', require('./routes/products'));
 app.use('/categories', require('./routes/categories'));
 app.use('/orders', require('./routes/orders'));

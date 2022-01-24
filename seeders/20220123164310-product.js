@@ -32,6 +32,28 @@ module.exports = {
       image: "no hay",
       createdAt: new Date(),
       updatedAt: new Date()
+    },
+
+    {
+      model: "fuego",
+      brand: "fiat",
+      used: false,
+      price: 900,
+      year: 2020,
+      image: "no hay",
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+
+    {
+      model: "agua",
+      brand: "seat",
+      used: true,
+      price: 1500,
+      year: 2021,
+      image: "no hay",
+      createdAt: new Date(),
+      updatedAt: new Date()
     }
   ])
   },
