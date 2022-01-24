@@ -117,11 +117,9 @@ const ProductController = {
             )
         } catch (error) {
             console.error(error)
-            res.status(500).send({message:"ha habido un problema al eliminar el usuario"})
+            res.status(500).send({message:"ha habido un problema al eliminar el producto"})
         }
-    },
-
-      
+    }      
 }
 
 module.exports = ProductController;
