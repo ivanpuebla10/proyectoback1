@@ -28,7 +28,7 @@ const UserController = {
             res.status(500).send({ message :'No se han podido cargar los usuarios y sus ordenes'})
         })
     },
-
+//arreglar esto con findbyid y eso, preguntar a german
     login(req,res){
         User.findOne({
             where:{
