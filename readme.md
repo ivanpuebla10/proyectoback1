@@ -34,6 +34,9 @@ Database's table example:
 ![foto](./images/tablas.png)
 
 Folders organization:
+
+
+
 ![foto](./images/carpetas.png)
 
 ## Author ✒️
