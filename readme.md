@@ -28,7 +28,7 @@ Using Postman you can see what the database brings and send requests. To see wha
 ![foto](./images/diagrama.png) -->
 
 Database's diagram(MySQL Workbench):
-![foto](./images/.png)
+![foto](./images/diagrama.png)
 
 Database's table example:
 ![foto](./images/tablas.png)
