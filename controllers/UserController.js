@@ -9,12 +9,22 @@ const { jwt_secret } = require('../config/config.json')['development']
 
 const UserController = {
     create(req, res) {
+        if (/^[a-zA-Z]\w{3,14}$/i.test(req.body.password) !== true) {
+            return res.send(
+              "El primer carácter de la contraseña debe ser una letra, debe contener al  menos 4 caracteres y no más de 15 caracteres y no se pueden usar más  caracteres que letras, números y guiones bajos."
+            );
+          }
         req.body.role = "user";
         const hash = bcrypt.hashSync(req.body.password,10)
         User.create({...req.body, password:hash })
             .then(user => res.status(201).send({ message: 'Usuario creado con éxito', user }))
-            .catch(console.error)
+            .catch(err =>{
+                console.error(err);
+                res.status(400).send({ msg: err.errors[0].message });
+            })
     },
+
+    //arreglar esto con findbyid y eso, preguntar a german, falta validaciones tambien
 
     getAll(req,res){
         User.findAll({
@@ -28,7 +38,20 @@ const UserController = {
             res.status(500).send({ message :'No se han podido cargar los usuarios y sus ordenes'})
         })
     },
-//arreglar esto con findbyid y eso, preguntar a german
+
+    getUserLogged(req,res){
+        User.findByPk(req.params.id, {
+            include:[
+                {model: Order, include:[{model: Product, as: 'products', through: {attributes: []}}]}
+            ]
+        })
+        .then(order=> res.status(200).send({description:"Current user and orders",order}))
+        .catch(err => {
+            console.error(err)
+            res.status(500).send({ message :'No se han podido cargar los usuarios y sus ordenes'})
+        })
+    },
+
     login(req,res){
         User.findOne({
             where:{
