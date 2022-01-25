@@ -7,7 +7,7 @@ This database was created using Javascript, Node.js, Express, mySQL, sequelize, 
 ### REQUIREMENTS 📋
 Visual studio code. Node.js installed. MySQL server and Workbench installed. Postman installed.
 
-### HOW TO RUN THIS PROGRAM 🔧
+### HOW TO RUN THIS PROJECT 🔧
 ## Geting Started 🚀
 - Clone this repository `https://github.com/ivanpuebla10/proyectoback1`
 - Install the dependencies `npm install`

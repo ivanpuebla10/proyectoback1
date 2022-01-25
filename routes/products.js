@@ -2,10 +2,12 @@ const express = require('express');
 const router = express.Router();
 const ProductController = require('../controllers/ProductController')
 const {authentication, isAdmin} = require('../middleware/authentication')
+const { uploadUserProductsImages } = require('../middleware/multer');
 
 
-router.post('/createproduct',authentication, isAdmin, ProductController.create)
-router.put('/update/:id',authentication, isAdmin, ProductController.update)
+
+router.post('/createproduct',authentication, isAdmin, uploadUserProductsImages.single('imageProduct'),ProductController.create)
+router.put('/update/:id',authentication, isAdmin, uploadUserProductsImages.single('imageProduct'), ProductController.update)
 router.get('/getproducts',ProductController.getAll)
 router.get('/getproductbyid/:id',ProductController.getById);
 router.get('/getproductbyname/:model',ProductController.getOneByName)

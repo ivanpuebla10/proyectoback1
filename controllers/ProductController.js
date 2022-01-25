@@ -4,7 +4,8 @@ const {Op}= Sequelize;
 const ProductController = {
     async create(req, res) {
         try {
-            if(!req.body.model || !req.body.brand || !req.body.used || !req.body.image || !req.body.price || !req.body.year){
+            if (req.file) req.body.image_path = req.file.filename;
+            if(!req.body.model || !req.body.brand || !req.body.used || !req.body.price || !req.body.year){
                 return res.status(400).json({msg:'Por favor rellene todos los campos'})
             }
             const {categories, ...data} = req.body
@@ -23,6 +24,7 @@ const ProductController = {
 
     async update(req,res) {
         try {
+            if (req.file) req.body.image_path = req.file.filename;
             const { categories, ...data} = req.body
             const put = await Product.findByPk(req.params.id)
             put.update(data)

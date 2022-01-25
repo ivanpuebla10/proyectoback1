@@ -14,7 +14,7 @@ const UserController = {
               "El primer carácter de la contraseña debe ser una letra, debe contener al  menos 4 caracteres y no más de 15 caracteres y no se pueden usar más  caracteres que letras, números y guiones bajos."
             );
           }
-        req.body.role = "user";
+        req.body.role = req.body.role ? req.body.role : "user";
         const hash = bcrypt.hashSync(req.body.password,10)
         User.create({...req.body, password:hash })
             .then(user => res.status(201).send({ message: 'Usuario creado con éxito', user }))
