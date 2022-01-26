@@ -9,13 +9,13 @@ const ProductController = {
                 return res.status(400).json({msg:'Por favor rellene todos los campos'})
             }
             const {categories, ...data} = req.body
-            const post = await Product.create(data);
+            const product = await Product.create(data);
 
             if(categories && categories.length > 0) {
-                post.setCategories(categories)
+                product.setCategories(categories)
             }
 
-            return res.status(200).send({msg: 'Producto creado con exito', post})
+            return res.status(200).send({msg: 'Producto creado con exito', product})
         }catch(error) {
             console.error(error)
             res.status(500).send({message: 'Ha habido un problema al crear el producto'})
@@ -26,14 +26,14 @@ const ProductController = {
         try {
             if (req.file) req.body.image_path = req.file.filename;
             const { categories, ...data} = req.body
-            const put = await Product.findByPk(req.params.id)
-            put.update(data)
+            const product = await Product.findByPk(req.params.id)
+            product.update(data)
 
             if (categories && categories.length > 0) {
-                put.setCategories(categories)
+                product.setCategories(categories)
             }
 
-            return res.status(200).send({ message: 'Producto actualzado con exito', put})
+            return res.status(200).send({ message: 'Producto actualzado con exito', product})
         } catch (error) {
             console.error(error)
             res.status(500).send({ message: "No ha sido posible actualizar el producto"})

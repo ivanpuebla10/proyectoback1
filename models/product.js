@@ -15,11 +15,51 @@ module.exports = (sequelize, DataTypes) => {
     })}
   }
   Product.init({
-    model: DataTypes.STRING,
-    brand: DataTypes.STRING,
-    year: DataTypes.INTEGER,
-    used: DataTypes.BOOLEAN,
-    price: DataTypes.INTEGER,
+    model: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Por favor introduce el modelo del coche",
+        },
+      },
+    },
+    brand: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Por favor introduce la marca del coche",
+        },
+      },
+    },
+    year: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Por favor introduce el año del coche",
+        },
+      },
+    },
+    used: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Por favor introduce 'true' o 'false' en caso de que el coche sea usado o no, respectivamente",
+        },
+      },
+    },
+    price: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Por favor introduce el precio del coche",
+        },
+      },  
+    },
     image: DataTypes.STRING
   }, {
     sequelize,

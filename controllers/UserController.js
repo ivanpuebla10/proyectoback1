@@ -17,7 +17,9 @@ const UserController = {
         req.body.role = req.body.role ? req.body.role : "user";
         const hash = bcrypt.hashSync(req.body.password,10)
         User.create({...req.body, password:hash })
-            .then(user => res.status(201).send({ message: 'Usuario creado con éxito', user }))
+            .then(user => {
+                
+                res.status(201).send({ message: 'Usuario creado con éxito', user })})
             .catch(err =>{
                 console.error(err);
                 res.status(400).send({ msg: err.errors[0].message });
@@ -32,7 +34,7 @@ const UserController = {
                 {model: Order, include:[{model: Product, as: 'products', through: {attributes: []}}]}
             ]
         })
-        .then(order=> res.status(200).send({description:"Todos los usuarios y sus ordenes",order}))
+        .then(user=> res.status(200).send({description:"Todos los usuarios y sus ordenes",user}))
         .catch(err => {
             console.error(err)
             res.status(500).send({ message :'No se han podido cargar los usuarios y sus ordenes'})

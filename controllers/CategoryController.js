@@ -8,13 +8,13 @@ const CategoryController = {
                 return res.status(400).json({msg:'Por favor rellene todos los campos'})
             }
             const {products, ...data} = req.body
-            const post = await Category.create(data);
+            const category = await Category.create(data);
 
             if(products && products.length > 0) {
-                post.setProducts(products)
+                category.setProducts(products)
             }
 
-            return res.status(200).send({msg: 'Categoria creado con exito', post})
+            return res.status(200).send({msg: 'Categoria creado con exito', category})
         }catch(error) {
             console.error(error)
             res.status(500).send({message: 'Ha habido un problema al crear el producto'})
