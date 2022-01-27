@@ -4,6 +4,7 @@ const bcrypt = require ('bcryptjs');
 const transporter = require("../config/nodemailer");
 const jwt = require('jsonwebtoken');
 const { jwt_secret } = require('../config/config.json')['development'];
+const urlbackground = "https://p4.wallpaperbetter.com/wallpaper/481/545/249/metal-the-dark-background-texture-wallpaper-preview.jpg";
 
 const UserController = {
     create(req, res) {
@@ -21,11 +22,10 @@ const UserController = {
                 transporter.sendMail({
                     to: req.body.email,
                     subject: "Confirme su registro",
-                    html: `<h3>Bienvenido ${req.body.name}, estás a un paso de registrarte </h3>
-                    <a href="${url}"> Click para confirmar tu registro</a>
-                    `,
+                    html: `<div style = 'background-image: url("${urlbackground}"); height:100vh;'><h3 style = "color:white; font-size:30px;">Bienvenido ${req.body.name}, estás a un paso de registrarte </h3>
+                    <a href="${url}"> Click para confirmar tu registro</a></div>`,
                 }).then()
-                res.status(201).send({ message: 'Te hemos enviado un correo para confirmar el registro', user })})
+                res.status(201).send({ message: 'Te hemos enviado un correo para confirmar el registro.', user })})
             .catch(err =>{
                 console.error(err);
                 res.status(400).send({ msg: err.errors[0].message });
