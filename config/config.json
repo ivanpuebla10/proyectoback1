@@ -5,7 +5,11 @@
     "database": "coches",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "jwt_secret": "yosoyironman"
+    "jwt_secret": "yosoyironman",
+    "AUTH": {
+      "user": "nodemailerprueba1@gmail.com",
+      "pass": "IvanNodemailer99"
+    }
   },
   "test": {
     "username": "root",

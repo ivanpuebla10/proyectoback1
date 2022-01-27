@@ -1,11 +1,9 @@
-const { User, Order, Product, Token, Sequelize } = require('../models/index.js');
+const { User, Order, Product, Token, Sequelize,  } = require('../models/index.js');
 const { Op } = Sequelize;
 const bcrypt = require ('bcryptjs');
+const transporter = require("../config/nodemailer");
 const jwt = require('jsonwebtoken');
-const { jwt_secret } = require('../config/config.json')['development']
-
-
-
+const { jwt_secret } = require('../config/config.json')['development'];
 
 const UserController = {
     create(req, res) {
@@ -16,17 +14,23 @@ const UserController = {
           }
         req.body.role = req.body.role ? req.body.role : "user";
         const hash = bcrypt.hashSync(req.body.password,10)
-        User.create({...req.body, password:hash })
-            .then(user => {
-                
-                res.status(201).send({ message: 'Usuario creado con éxito', user })})
+        User.create({...req.body, password:hash, confirmed: false})
+            .then(user => { 
+                const emailToken = jwt.sign({email:req.body.email},jwt_secret,{expiresIn:'48h'})
+                const url = 'http://localhost:4000/users/confirm/'+ emailToken
+                transporter.sendMail({
+                    to: req.body.email,
+                    subject: "Confirme su registro",
+                    html: `<h3>Bienvenido ${req.body.name}, estás a un paso de registrarte </h3>
+                    <a href="${url}"> Click para confirmar tu registro</a>
+                    `,
+                }).then()
+                res.status(201).send({ message: 'Te hemos enviado un correo para confirmar el registro', user })})
             .catch(err =>{
                 console.error(err);
                 res.status(400).send({ msg: err.errors[0].message });
             })
     },
-
-    //arreglar esto con findbyid y eso, preguntar a german, falta validaciones tambien
 
     getAll(req,res){
         User.findAll({
@@ -60,6 +64,9 @@ const UserController = {
                 email:req.body.email
             }
         }).then(user=>{
+            if(!user.confirmed){
+                return res.status(400).send({message:"Debes confirmar tu correo"})
+            }
             if(!user){
                 return res.status(400).send({message:"Usuario o contraseña incorrectos"})
             }
@@ -88,7 +95,22 @@ const UserController = {
             console.log(error)
             res.status(500).send({ message: 'hubo un problema al tratar de desconectarte' })
         }
-    }
+    },
+
+    async confirm(req,res){
+        try {
+          const token = req.params.emailToken;
+          const payload = jwt.verify(token,jwt_secret)
+          await User.update({confirmed:true},{
+            where:{
+              email: payload.email
+            }
+          })
+          res.status(201).send("Usuario confirmado con exito" );
+        } catch (error) {
+          console.error(error)
+        }
+      },
 
 }
 

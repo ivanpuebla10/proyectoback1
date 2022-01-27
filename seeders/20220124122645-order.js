@@ -4,26 +4,26 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     return queryInterface.bulkInsert( 'Orders', [
       {
-      number: "100",
+      number: 100,
       delivery_date: "2022-09-21",
       status: "delivered",
-      UserId: "1",
+      UserId: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     },
     {
-      number: "200",
+      number: 200,
       delivery_date: "2022-11-21",
       status: "pending",
-      UserId: "2",
+      UserId: 2,
       createdAt: new Date(),
       updatedAt: new Date()
     },
     {
-      number: "300",
+      number: 300,
       delivery_date: "2022-010-22",
       status: "delivered",
-      UserId: "3",
+      UserId: 3,
       createdAt: new Date(),
       updatedAt: new Date()
     }

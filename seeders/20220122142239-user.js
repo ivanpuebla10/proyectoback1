@@ -8,6 +8,7 @@ module.exports = {
       email: "ivan@gmail.com",
       password: "123456",
       role: "admin",
+      confirmed: true,
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -16,6 +17,7 @@ module.exports = {
       email: "ana@gmail.com",
       password: "contraseña",
       role: "user",
+      confirmed: true,
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -24,6 +26,7 @@ module.exports = {
       email: "carlos@gmail.com",
       password: "patata",
       role: "user",
+      confirmed: true,
       createdAt: new Date(),
       updatedAt: new Date()
     },

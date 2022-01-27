@@ -2,7 +2,7 @@
 Back-end project is a simple database for a car's eccommerce created with sequelize. 
 
 ## TECHNOLOGIES 🛠️
-This database was created using Javascript, Node.js, Express, mySQL, sequelize, Multer, Bcrypt and Middleware. The code was written in Visual Studio Code.
+This database was created using Javascript, Node.js, Express, mySQL, sequelize, Multer, Bcrypt, Nodemailer and Middleware. The code was written in Visual Studio Code.
 
 ### REQUIREMENTS 📋
 Visual studio code. Node.js installed. MySQL server and Workbench installed. Postman installed.

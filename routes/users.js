@@ -9,6 +9,7 @@ router.get('/getusers', authentication, isAdmin, UserController.getAll);
 router.post('/login',UserController.login);
 router.delete('/logout',authentication, UserController.logout);
 router.get('/getcurrentuser/:id',authentication, UserController.getUserLogged);
+router.get('/confirm/:emailToken',UserController.confirm);
 
 
 
