@@ -11,7 +11,7 @@ const UserController = {
         if (/^[a-zA-Z]\w{3,14}$/i.test(req.body.password) !== true) {
             return res.send(
               "El primer carácter de la contraseña debe ser una letra, debe contener al  menos 4 caracteres y no más de 15 caracteres y no se pueden usar más  caracteres que letras, números y guiones bajos."
-            );
+            ); 
           }
         req.body.role = req.body.role ? req.body.role : "user";
         const hash = bcrypt.hashSync(req.body.password,10)
@@ -46,11 +46,11 @@ const UserController = {
     },
 
     getUserLogged(req,res){
-        User.findByPk(req.params.id, {
+        User.findByPk(req.user.id, {
             include:[
                 {model: Order, include:[{model: Product, as: 'products', through: {attributes: []}}]}
             ]
-        })
+        }) 
         .then(order=> res.status(200).send({description:"Current user and orders",order}))
         .catch(err => {
             console.error(err)
