@@ -11,7 +11,7 @@ module.exports = {
       confirmed: true,
       createdAt: new Date(),
       updatedAt: new Date()
-    },
+    }, 
     {
       name: "Ana",
       email: "ana@gmail.com",

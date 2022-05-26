@@ -12,3 +12,5 @@ app.use('/orders', require('./routes/orders'));
 
 
 app.listen(PORT, () => console.log('servidor levantado en el puerto' + PORT))
+
+module.exports = app

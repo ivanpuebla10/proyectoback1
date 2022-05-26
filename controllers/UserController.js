@@ -10,21 +10,21 @@ const UserController = {
     create(req, res) {
         if (/^[a-zA-Z]\w{3,14}$/i.test(req.body.password) !== true) {
             return res.send(
-              "El primer carácter de la contraseña debe ser una letra, debe contener al  menos 4 caracteres y no más de 15 caracteres y no se pueden usar más  caracteres que letras, números y guiones bajos."
+              "El primer carácter de la contraseña debe ser una letra, debe contener al  menos 4 caracteres y no más de 15 caracteres y no se pueden usar más caracteres que letras, números y guiones bajos."
             ); 
           }
         req.body.role = req.body.role ? req.body.role : "user";
-        const hash = bcrypt.hashSync(req.body.password,10)
-        User.create({...req.body, password:hash, confirmed: false})
+        // const hash = bcrypt.hashSync(req.body.password,10)
+        User.create({...req.body, confirmed: false})
             .then(user => { 
-                const emailToken = jwt.sign({email:req.body.email},jwt_secret,{expiresIn:'48h'})
-                const url = 'http://localhost:4000/users/confirm/'+ emailToken
-                transporter.sendMail({
-                    to: req.body.email,
-                    subject: "Confirme su registro",
-                    html: `<div style = 'background-image: url("${urlbackground}"); height:100vh;'><h3 style = "color:white; font-size:30px;">Bienvenido ${req.body.name}, estás a un paso de registrarte </h3>
-                    <a href="${url}"> Click para confirmar tu registro</a></div>`,
-                }).then()
+                // const emailToken = jwt.sign({email:req.body.email},jwt_secret,{expiresIn:'48h'})
+                // const url = 'http://localhost:4000/users/confirm/'+ emailToken
+                // transporter.sendMail({
+                //     to: req.body.email,
+                //     subject: "Confirme su registro",
+                //     html: `<div style = 'background-image: url("${urlbackground}"); height:100vh;'><h3 style = "color:white; font-size:30px;">Bienvenido ${req.body.name}, estás a un paso de registrarte </h3>
+                //     <a href="${url}"> Click para confirmar tu registro</a></div>`,
+                // }).then()
                 res.status(201).send({ message: 'Te hemos enviado un correo para confirmar el registro.', user })})
             .catch(err =>{
                 console.error(err);
@@ -38,7 +38,7 @@ const UserController = {
                 {model: Order, include:[{model: Product, as: 'products', through: {attributes: []}}]}
             ]
         })
-        .then(user=> res.status(200).send({description:"Todos los usuarios y sus ordenes",user}))
+        .then(user=> res.status(200).send(user))
         .catch(err => {
             console.error(err)
             res.status(500).send({ message :'No se han podido cargar los usuarios y sus ordenes'})
@@ -56,7 +56,7 @@ const UserController = {
             console.error(err)
             res.status(500).send({ message :'No se han podido cargar los usuarios y sus ordenes'})
         })
-    },
+    }, 
 
     login(req,res){
         User.findOne({
@@ -70,10 +70,10 @@ const UserController = {
             if(!user){
                 return res.status(400).send({message:"Usuario o contraseña incorrectos"})
             }
-            const isMatch = bcrypt.compareSync(req.body.password, user.password);
-            if(!isMatch){
-                return res.status(400).send({message:"Usuario o contraseña incorrectos"})
-            }
+            // const isMatch = bcrypt.compareSync(req.body.password, user.password);
+            // if(!isMatch){
+            //     return res.status(400).send({message:"Usuario o contraseña incorrectos"})
+            // }
             token = jwt.sign({ id: user.id }, jwt_secret);
             Token.create({ token, UserId: user.id });
             res.send({ message: 'Bienvenid@' + user.name, user, token });

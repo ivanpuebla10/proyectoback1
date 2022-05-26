@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "test": "jest",
+    "dev": "nodemon index.js",
+    "test:watch": "jest --watchAll"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +21,8 @@
     "sequelize": "^6.14.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "jest": "^28.1.0",
+    "nodemon": "^2.0.15",
+    "supertest": "^6.2.3"
   }
 }
